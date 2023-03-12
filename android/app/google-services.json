@@ -1,0 +1,121 @@
+{
+  "project_info": {
+    "project_number": "373762374848",
+    "project_id": "dynamic-doctor",
+    "storage_bucket": "dynamic-doctor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373762374848:android:2a79fabc30dabba80e0125",
+        "android_client_info": {
+          "package_name": "com.humbingo.dynamicadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373762374848-v4rdrpvp45ga6ogm1e2287ivgqoq7ltd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.humbingo.dynamicadmin",
+            "certificate_hash": "18db74b611dcce588a0893327c518a798399da8a"
+          }
+        },
+        {
+          "client_id": "373762374848-q4tvqbcnpfokrgvmqlsdol61ojmbcqt4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIpaRV9OTP0S3yin9Tn5HfOaz6UWPNifk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373762374848-q4tvqbcnpfokrgvmqlsdol61ojmbcqt4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373762374848:android:a3ba18a51d3355150e0125",
+        "android_client_info": {
+          "package_name": "com.humbingo.dynamicagent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373762374848-q60jn41irc4l0shh9p1506hjaj726qum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.humbingo.dynamicagent",
+            "certificate_hash": "18db74b611dcce588a0893327c518a798399da8a"
+          }
+        },
+        {
+          "client_id": "373762374848-q4tvqbcnpfokrgvmqlsdol61ojmbcqt4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIpaRV9OTP0S3yin9Tn5HfOaz6UWPNifk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373762374848-q4tvqbcnpfokrgvmqlsdol61ojmbcqt4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373762374848:android:f3a6995e65c3c2020e0125",
+        "android_client_info": {
+          "package_name": "com.humbingo.dynamicdoctor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373762374848-50rgk3mmmh5c62udpa0is2ju4ldb0k9j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.humbingo.dynamicdoctor",
+            "certificate_hash": "18db74b611dcce588a0893327c518a798399da8a"
+          }
+        },
+        {
+          "client_id": "373762374848-q4tvqbcnpfokrgvmqlsdol61ojmbcqt4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIpaRV9OTP0S3yin9Tn5HfOaz6UWPNifk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373762374848-q4tvqbcnpfokrgvmqlsdol61ojmbcqt4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
