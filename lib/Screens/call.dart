@@ -22,6 +22,7 @@ import 'package:progressive_image/progressive_image.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class CallPage extends StatefulWidget {
   final String patientCity;
@@ -67,24 +68,6 @@ class _CallPageState extends State<CallPage>
     with SingleTickerProviderStateMixin {
   final GlobalKey webViewKey = GlobalKey();
 
-  InAppWebViewController? webViewController;
-  InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
-      crossPlatform: InAppWebViewOptions(
-        useShouldOverrideUrlLoading: true,
-        mediaPlaybackRequiresUserGesture: false,
-      ),
-      android: AndroidInAppWebViewOptions(
-        useHybridComposition: true,
-      ),
-      ios: IOSInAppWebViewOptions(
-        allowsInlineMediaPlayback: true,
-      ));
-
-  late PullToRefreshController pullToRefreshController;
-  String url = "";
-  double progress = 0;
-  final urlController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -128,20 +111,6 @@ class _CallPageState extends State<CallPage>
     //             child: Icon(Icons.cancel))
     //       ]));
     // }
-
-    pullToRefreshController = PullToRefreshController(
-      options: PullToRefreshOptions(
-        color: Colors.blue,
-      ),
-      onRefresh: () async {
-        if (Platform.isAndroid) {
-          webViewController?.reload();
-        } else if (Platform.isIOS) {
-          webViewController?.loadUrl(
-              urlRequest: URLRequest(url: await webViewController?.getUrl()));
-        }
-      },
-    );
   }
 
   @override
@@ -447,12 +416,12 @@ class _CallPageState extends State<CallPage>
         initializer: SSLCommerzInitialization(
       //Use the ipn if you have valid one, or it will fail the transaction.
       //   ipn_url: "www.ipnurl.com",
-      multi_card_name: 'visa,master,bkash',
+      multi_card_name: 'multicard',
       currency: SSLCurrencyType.BDT,
       product_category: "Consultancy",
       sdkType: SSLCSdkType.TESTBOX,
-      store_id: 'Dynamic',
-      store_passwd: '61371C2BAF4AE37538',
+      store_id: storeId,
+      store_passwd: storePassword,
       total_amount: _type == "Percentage"
           ? double.parse(typePercentage(price))
           : _type == "Flat"
@@ -756,338 +725,242 @@ class _CallPageState extends State<CallPage>
         "https://humbingo.com/videocall/doctor-appointment/?doctorid=${widget.doctorId}";
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return MaterialApp(
-      home: WillPopScope(
-        onWillPop: () async {
-          webViewController!.goBack();
-          return false;
-        },
-        child: Scaffold(
-          drawer: Drawers(),
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            iconTheme: const IconThemeData(color: dark),
-            centerTitle: true,
-            title: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: width * 0.07,
-                    width: width * 0.2,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: lightpurple2,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "English",
-                        style: GoogleFonts.raleway(
-                            fontWeight: FontWeight.w600,
-                            fontSize: height * 0.02,
-                            color: Colors.white),
-                      ),
+    return Scaffold(
+      drawer: Drawers(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        iconTheme: const IconThemeData(color: dark),
+        centerTitle: true,
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: width * 0.07,
+                width: width * 0.2,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: lightpurple2,
+                ),
+                child: Center(
+                  child: Text(
+                    "English",
+                    style: GoogleFonts.raleway(
+                        fontWeight: FontWeight.w600,
+                        fontSize: height * 0.02,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  languageHindi(context, width, height);
+                },
+                child: Container(
+                  height: width * 0.07,
+                  width: width * 0.2,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: dark,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "Bengali",
+                      style: GoogleFonts.raleway(
+                          fontWeight: FontWeight.w600,
+                          fontSize: height * 0.02,
+                          color: Colors.white),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      languageHindi(context, width, height);
-                    },
-                    child: Container(
-                      height: width * 0.07,
-                      width: width * 0.2,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: dark,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Hindi",
-                          style: GoogleFonts.raleway(
-                              fontWeight: FontWeight.w600,
-                              fontSize: height * 0.02,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            actions: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => const ChatSupportScreen()));
-                },
-                child: Image.asset(
-                  "assets/b1.png",
-                  width: width * 0.05,
                 ),
-              ),
-              SizedBox(
-                width: width * 0.02,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Alert(
-                    context: context,
-                    type: AlertType.success,
-                    // title: "RFLUTTER ALERT",
-                    desc: "Do you want to make a phone call to our support?",
-                    buttons: [
-                      DialogButton(
-                        onPressed: () {
-                          makePhoneCall("09611677590", true);
-                        },
-                        color: lightpurple2,
-                        child: const Text(
-                          "Yes",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ),
-                      DialogButton(
-                        onPressed: () => Navigator.pop(context),
-                        color: lightpurple2,
-                        child: const Text(
-                          "No",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ),
-                    ],
-                  ).show();
-                },
-                child: Image.asset(
-                  "assets/p1.png",
-                  width: width * 0.05,
-                ),
-              ),
-              SizedBox(
-                width: width * 0.03,
-              ),
+              )
             ],
           ),
-          body: SafeArea(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Stack(
-                    children: [
-                      InAppWebView(
-                        key: webViewKey,
-                        initialUrlRequest: URLRequest(
-                          url: Uri.parse(_url),
-                        ),
-                        initialOptions: options,
-                        // pullToRefreshController: pullToRefreshController,
-                        onWebViewCreated: (controller) {
-                          webViewController = controller;
-                        },
-                        onLoadStart: (controller, url) {
-                          setState(() async {
-                            this.url = url.toString();
-                            urlController.text = this.url;
-                            print(_url);
-                          });
-                        },
-                        androidOnPermissionRequest:
-                            (controller, origin, resources) async {
-                          return PermissionRequestResponse(
-                              resources: resources,
-                              action: PermissionRequestResponseAction.GRANT);
-                        },
-                        androidOnGeolocationPermissionsShowPrompt:
-                            (InAppWebViewController controller,
-                                String origin) async {
-                          return GeolocationPermissionShowPromptResponse(
-                              origin: origin, allow: true, retain: true);
-                        },
-                        shouldOverrideUrlLoading:
-                            (controller, navigationAction) async {
-                          var uri = navigationAction.request.url!;
-
-                          if (![
-                            "http",
-                            "https",
-                            "file",
-                            "chrome",
-                            "data",
-                            "javascript",
-                            "about"
-                          ].contains(uri.scheme)) {
-                            if (await canLaunch(url)) {
-                              // Launch the App
-                              await launch(
-                                url,
-                              );
-                              // and cancel the request
-                              return NavigationActionPolicy.CANCEL;
-                            }
-                          }
-
-                          return NavigationActionPolicy.ALLOW;
-                        },
-                        onLoadStop: (controller, url) async {
-                          pullToRefreshController.endRefreshing();
-                          setState(() {
-                            this.url = url.toString();
-                            urlController.text = this.url;
-                          });
-                        },
-                        onLoadError: (controller, url, code, message) {
-                          pullToRefreshController.endRefreshing();
-                        },
-                        onProgressChanged: (controller, progress) {
-                          if (progress == 100) {
-                            pullToRefreshController.endRefreshing();
-                          }
-                          setState(() {
-                            this.progress = progress / 100;
-                            urlController.text = url;
-                          });
-                        },
-                        onUpdateVisitedHistory:
-                            (controller, url, androidIsReload) {
-                          setState(() {
-                            this.url = url.toString();
-                            urlController.text = this.url;
-                          });
-                        },
-                        onConsoleMessage: (controller, consoleMessage) {
-                          // ignore: avoid_print
-                          print(consoleMessage);
-                        },
-                      ),
-                      progress < 1.0
-                          ? LinearProgressIndicator(value: progress)
-                          : Container(),
-                    ],
-                  ),
-                ),
-              ],
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const ChatSupportScreen()));
+            },
+            child: Image.asset(
+              "assets/b1.png",
+              width: width * 0.05,
             ),
           ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: ElevatedButton.icon(
+          SizedBox(
+            width: width * 0.02,
+          ),
+          GestureDetector(
+            onTap: () {
+              Alert(
+                context: context,
+                type: AlertType.success,
+                // title: "RFLUTTER ALERT",
+                desc: "Do you want to make a phone call to our support?",
+                buttons: [
+                  DialogButton(
                     onPressed: () {
-                      if (widget.route == "call") {
-                        _sendStatus(
-                            status: "unpaid", prescriptionStatus: "Pending");
-                        sslCommerzGeneralCall(widget.price).whenComplete(
-                          () => {
-                            _sendStatus(
-                                status: "paid", prescriptionStatus: "Pending"),
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                                    "You will find your Prescription in previous Prescription Section."))),
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(builder: (context) => Home()),
-                                (route) => false)
-                          },
-                        );
-                      } else if (widget.route == "doctorCall") {
-                        _sendStatus(
-                            status: "completed",
-                            prescriptionStatus: "completed");
-                        Navigator.of(context).pop();
-                      } else if (widget.route == "agentCall") {
-                        _sendStatus(
-                          status: "unpaid",
-                          prescriptionStatus: "Pending",
-                        );
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CheckOutScreen(
-                                  bookingId: widget.bookingId,
-                                  route: "call",
-                                  doctorId: widget.doctorId,
-                                  doctorName: widget.doctorName,
-                                  doctorUrl: widget.doctorProfileUrl,
-                                  doctorLocation: widget.doctorLocation,
-                                  doctorSpeciality: widget.doctorSpeciality,
-                                  registration: widget.doctorregistration,
-                                  price: widget.price,
-                                  bookedDateAndTime: "",
-                                )));
-                        sslCommerzGeneralCall(widget.price).whenComplete(
-                          () => {
-                            _sendStatus(
-                                status: "paid", prescriptionStatus: "Pending"),
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                                    "You will find your Prescription in previous Prescription Section."))),
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(builder: (context) => Home()),
-                                (route) => false)
-                          },
-                        );
-                      } else {
-                        Navigator.of(context).pop();
-                      }
+                      makePhoneCall("09611677590", true);
                     },
-                    icon: const Icon(Icons.phone),
-                    label: const Text('End Call'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.red, // background
-                      onPrimary: Colors.white, // foreground
+                    color: lightpurple2,
+                    child: const Text(
+                      "Yes",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () => _startAddNewTransaction(context),
-                    icon: const Icon(Icons.person),
-                    label: Text(
-                      widget.route == "patient" || widget.route == "agentCall"
-                          ? 'Doctor Details'
-                          : widget.route == "call"
-                              ? "Doctor Details"
-                              : 'Patient Details',
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: dark, // background
-                      foregroundColor: Colors.white, // foreground
+                  DialogButton(
+                    onPressed: () => Navigator.pop(context),
+                    color: lightpurple2,
+                    child: const Text(
+                      "No",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      widget.route == "patient" || widget.route == "agentCall"
-                          ? _showUploadedPicturesPatient(context, height, width)
-                          : widget.route == "call"
-                              ? _showUploadedPicturesPatient(
-                                  context, height, width)
-                              : _showUploadedPictures(context, height, width);
-                    },
-                    child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: lightestpurple,
-                        ),
-                        height: width * 0.1,
-                        width: width * 0.35,
-                        child: Text(
-                          widget.route == "patient" ||
-                                  widget.route == "agentCall"
-                              ? "Upload Files"
-                              : widget.route == "call"
-                                  ? "Upload Files"
-                                  : "See Files",
-                          style: GoogleFonts.raleway(
-                              fontWeight: FontWeight.w500, color: dark),
-                        )),
-                  ),
-                ),
-              ],
+                ],
+              ).show();
+            },
+            child: Image.asset(
+              "assets/p1.png",
+              width: width * 0.05,
             ),
           ),
+          SizedBox(
+            width: width * 0.03,
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: ZegoUIKitPrebuiltCall(
+          appID: videoAppId,
+          appSign: videoAppSign,
+          userID: widget.route == "doctor" ? widget.doctorId : widget.patientid,
+          userName: "user_${widget.route}" == "doctor"
+              ? widget.doctorName
+              : widget.patientName,
+          callID: widget.patientid,
+          config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+            ..onOnlySelfInRoom = (context) {
+              Navigator.of(context).pop();
+            },
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(0.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  if (widget.route == "call") {
+                    _sendStatus(
+                        status: "unpaid", prescriptionStatus: "Pending");
+                    sslCommerzGeneralCall(widget.price).whenComplete(
+                      () => {
+                        _sendStatus(
+                            status: "paid", prescriptionStatus: "Pending"),
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                "You will find your Prescription in previous Prescription Section."))),
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => Home()),
+                            (route) => false)
+                      },
+                    );
+                  } else if (widget.route == "doctorCall") {
+                    _sendStatus(
+                        status: "completed", prescriptionStatus: "completed");
+                    Navigator.of(context).pop();
+                  } else if (widget.route == "agentCall") {
+                    _sendStatus(
+                      status: "unpaid",
+                      prescriptionStatus: "Pending",
+                    );
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CheckOutScreen(
+                              bookingId: widget.bookingId,
+                              route: "call",
+                              doctorId: widget.doctorId,
+                              doctorName: widget.doctorName,
+                              doctorUrl: widget.doctorProfileUrl,
+                              doctorLocation: widget.doctorLocation,
+                              doctorSpeciality: widget.doctorSpeciality,
+                              registration: widget.doctorregistration,
+                              price: widget.price,
+                              bookedDateAndTime: "",
+                            )));
+                    sslCommerzGeneralCall(widget.price).whenComplete(
+                      () => {
+                        _sendStatus(
+                            status: "paid", prescriptionStatus: "Pending"),
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                "You will find your Prescription in previous Prescription Section."))),
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => Home()),
+                            (route) => false)
+                      },
+                    );
+                  } else {
+                    Navigator.of(context).pop();
+                  }
+                },
+                icon: const Icon(Icons.phone),
+                label: const Text('End Call'),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red, // background
+                  onPrimary: Colors.white, // foreground
+                ),
+              ),
+            ),
+            Expanded(
+              child: ElevatedButton.icon(
+                onPressed: () => _startAddNewTransaction(context),
+                icon: const Icon(Icons.person),
+                label: Text(
+                  widget.route == "patient" || widget.route == "agentCall"
+                      ? 'Doctor Details'
+                      : widget.route == "call"
+                          ? "Doctor Details"
+                          : 'Patient Details',
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: dark, // background
+                  foregroundColor: Colors.white, // foreground
+                ),
+              ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  widget.route == "patient" || widget.route == "agentCall"
+                      ? _showUploadedPicturesPatient(context, height, width)
+                      : widget.route == "call"
+                          ? _showUploadedPicturesPatient(context, height, width)
+                          : _showUploadedPictures(context, height, width);
+                },
+                child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: lightestpurple,
+                    ),
+                    height: width * 0.1,
+                    width: width * 0.35,
+                    child: Text(
+                      widget.route == "patient" || widget.route == "agentCall"
+                          ? "Upload Files"
+                          : widget.route == "call"
+                              ? "Upload Files"
+                              : "See Files",
+                      style: GoogleFonts.raleway(
+                          fontWeight: FontWeight.w500, color: dark),
+                    )),
+              ),
+            ),
+          ],
         ),
       ),
     );

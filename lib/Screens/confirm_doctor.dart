@@ -159,7 +159,7 @@ class _ConfirmDoctorState extends State<ConfirmDoctor>
                     ),
                     child: Center(
                       child: Text(
-                        "Hindi",
+                        "Bengali",
                         style: GoogleFonts.raleway(
                             fontWeight: FontWeight.w600,
                             fontSize: height * 0.02,
@@ -337,7 +337,7 @@ class _ConfirmDoctorState extends State<ConfirmDoctor>
                                                   MainAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "Fees: ₹$price",
+                                                  "Fees: ৳$price",
                                                   style: GoogleFonts.raleway(
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -455,7 +455,7 @@ class _ConfirmDoctorState extends State<ConfirmDoctor>
                                                       MainAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      "Fees: ₹$price",
+                                                      "Fees: ৳$price",
                                                       style:
                                                           GoogleFonts.raleway(
                                                               fontWeight:

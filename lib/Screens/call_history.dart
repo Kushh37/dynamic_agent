@@ -150,12 +150,12 @@ class _CallHistoryScreenState extends State<CallHistoryScreen>
         initializer: SSLCommerzInitialization(
       //Use the ipn if you have valid one, or it will fail the transaction.
       //   ipn_url: "www.ipnurl.com",
-      multi_card_name: 'visa,master,bkash',
+      multi_card_name: 'multicard',
       currency: SSLCurrencyType.BDT,
       product_category: "Consultancy",
       sdkType: SSLCSdkType.TESTBOX,
-      store_id: 'Dynamic',
-      store_passwd: '61371C2BAF4AE37538',
+      store_id: storeId,
+      store_passwd: storePassword,
       total_amount: double.parse(price),
       tran_id: "1231321321321312",
     ));
@@ -303,7 +303,7 @@ class _CallHistoryScreenState extends State<CallHistoryScreen>
                     ),
                     child: Center(
                       child: Text(
-                        "Hindi",
+                        "Bengali",
                         style: GoogleFonts.raleway(
                             fontWeight: FontWeight.w600,
                             fontSize: height * 0.02,

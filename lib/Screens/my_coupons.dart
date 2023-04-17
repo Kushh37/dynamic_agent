@@ -143,7 +143,7 @@ class _CouponsState extends State<Coupons> with SingleTickerProviderStateMixin {
                     ),
                     child: Center(
                       child: Text(
-                        "Hindi",
+                        "Bengali",
                         style: GoogleFonts.raleway(
                             fontWeight: FontWeight.w600,
                             fontSize: height * 0.02,
@@ -256,7 +256,7 @@ class _CouponsState extends State<Coupons> with SingleTickerProviderStateMixin {
                           Text(
                             _type == "Percentage"
                                 ? "flat $_amount% off on all orders.Enjoy!!"
-                                : "flat ₹$_amount off on all orders.Enjoy!!",
+                                : "flat ৳$_amount off on all orders.Enjoy!!",
                             style: GoogleFonts.roboto(
                                 color: dark,
                                 fontWeight: FontWeight.w400,

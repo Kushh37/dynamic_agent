@@ -31,6 +31,13 @@ const lightgrey = Color(0xffb6b6b6);
 const orange = Color(0xffdc9539);
 const green = Color(0xff04be04);
 
+const videoAppId = 328174001;
+const videoAppSign =
+    "47c3e992217b0113482089da76606c767af5903f202ff461e42673e96ce2bfd2";
+
+const storeId = "vedas612dadfd20e40";
+const storePassword = "vedas612dadfd20e40@ssl";
+
 makePhoneCall(String contact, bool direct) async {
   if (direct == true) {
     bool? res = await FlutterPhoneDirectCaller.callNumber(contact);
@@ -83,7 +90,7 @@ languageHindi(
                             color: grey),
                       ),
                       Text(
-                        'Hindi',
+                        'Bengali',
                         style: GoogleFonts.raleway(
                             fontSize: 22,
                             fontWeight: FontWeight.w700,

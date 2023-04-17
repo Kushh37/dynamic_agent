@@ -57,6 +57,7 @@ dependencies:
   url_launcher:
   uuid:
   youtube_player_flutter:
+  zego_uikit_prebuilt_call: ^2.0.0
 
 dev_dependencies:
   flutter_test:
